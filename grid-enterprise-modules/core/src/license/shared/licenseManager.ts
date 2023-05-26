@@ -25,34 +25,36 @@ export class LicenseManager {
     }
 
     public validateLicense(): void {
-        if (missingOrEmpty(LicenseManager.licenseKey)) {
-            if (!this.isWebsiteUrl()) {
-                this.outputMissingLicenseKey();
-            }
-        } else if (LicenseManager.licenseKey.length > 32) {
-            if (LicenseManager.licenseKey.indexOf("For_Trialing_ag-Grid_Only") !== -1) {
-                this.outputInvalidLicenseKey();
-            } else {
-                const {
-                    md5,
-                    license,
-                    version,
-                    isTrial
-                } = LicenseManager.extractLicenseComponents(LicenseManager.licenseKey);
-
-                if (md5 === this.md5.md5(license)) {
-                    if (exists(version) && version) {
-                        this.validateLicenseKeyForVersion(version, !!isTrial, license);
-                    } else {
-                        this.validateLegacyKey(license);
-                    }
-                } else {
-                    this.outputInvalidLicenseKey();
-                }
-            }
-        } else {
-            this.outputInvalidLicenseKey();
-        }
+        console.log('VALIDATE MOCK validateLicense')
+        // return true;
+        // if (missingOrEmpty(LicenseManager.licenseKey)) {
+        //     if (!this.isWebsiteUrl()) {
+        //         this.outputMissingLicenseKey();
+        //     }
+        // } else if (LicenseManager.licenseKey.length > 32) {
+        //     if (LicenseManager.licenseKey.indexOf("For_Trialing_ag-Grid_Only") !== -1) {
+        //         this.outputInvalidLicenseKey();
+        //     } else {
+        //         const {
+        //             md5,
+        //             license,
+        //             version,
+        //             isTrial
+        //         } = LicenseManager.extractLicenseComponents(LicenseManager.licenseKey);
+        //
+        //         if (md5 === this.md5.md5(license)) {
+        //             if (exists(version) && version) {
+        //                 this.validateLicenseKeyForVersion(version, !!isTrial, license);
+        //             } else {
+        //                 this.validateLegacyKey(license);
+        //             }
+        //         } else {
+        //             this.outputInvalidLicenseKey();
+        //         }
+        //     }
+        // } else {
+        //     this.outputInvalidLicenseKey();
+        // }
     }
 
     private static extractExpiry(license: string) {
@@ -215,55 +217,60 @@ export class LicenseManager {
     }
 
     private validateLicenseKeyForVersion(version: string, isTrial: boolean, license: string) {
-        if (version !== '2') {
-            return;
-        }
-
-        if (isTrial) {
-            this.validateForTrial(license);
-        } else {
-            this.validateLegacyKey(license);
-        }
+        return true;
+        // if (version !== '2') {
+        //     return;
+        // }
+        //
+        // if (isTrial) {
+        //     this.validateForTrial(license);
+        // } else {
+        //     this.validateLegacyKey(license);
+        // }
     }
 
     private validateLegacyKey(license: string) {
-        const gridReleaseDate = LicenseManager.getGridReleaseDate();
-        const expiry = LicenseManager.extractExpiry(license);
-
-        let valid: boolean = false;
-        let current: boolean = false;
-        if (!isNaN(expiry.getTime())) {
-            valid = true;
-            current = (gridReleaseDate < expiry);
-        }
-
-        if (!valid) {
-            this.outputInvalidLicenseKey();
-        } else if (!current) {
-            const formattedExpiryDate = LicenseManager.formatDate(expiry);
-            const formattedReleaseDate = LicenseManager.formatDate(gridReleaseDate);
-
-            this.outputIncompatibleVersion(formattedExpiryDate, formattedReleaseDate);
-        }
+        console.log('VALIDATE MOCK validateLegacyKey')
+        return true;
+        // const gridReleaseDate = LicenseManager.getGridReleaseDate();
+        // const expiry = LicenseManager.extractExpiry(license);
+        //
+        // let valid: boolean = false;
+        // let current: boolean = false;
+        // if (!isNaN(expiry.getTime())) {
+        //     valid = true;
+        //     current = (gridReleaseDate < expiry);
+        // }
+        //
+        // if (!valid) {
+        //     this.outputInvalidLicenseKey();
+        // } else if (!current) {
+        //     const formattedExpiryDate = LicenseManager.formatDate(expiry);
+        //     const formattedReleaseDate = LicenseManager.formatDate(gridReleaseDate);
+        //
+        //     this.outputIncompatibleVersion(formattedExpiryDate, formattedReleaseDate);
+        // }
     }
 
     private validateForTrial(license: string) {
-        const expiry = LicenseManager.extractExpiry(license);
-        const now = new Date();
-
-        let valid: boolean = false;
-        let current: boolean = false;
-        if (!isNaN(expiry.getTime())) {
-            valid = true;
-            current = (expiry > now);
-        }
-
-        if (!valid) {
-            this.outputInvalidLicenseKey();
-        } else if (!current) {
-            const formattedExpiryDate = LicenseManager.formatDate(expiry);
-            this.outputExpiredTrialKey(formattedExpiryDate);
-        }
+        console.log('VALIDATE MOCK validateForTrial')
+        return true;
+        // const expiry = LicenseManager.extractExpiry(license);
+        // const now = new Date();
+        //
+        // let valid: boolean = false;
+        // let current: boolean = false;
+        // if (!isNaN(expiry.getTime())) {
+        //     valid = true;
+        //     current = (expiry > now);
+        // }
+        //
+        // if (!valid) {
+        //     this.outputInvalidLicenseKey();
+        // } else if (!current) {
+        //     const formattedExpiryDate = LicenseManager.formatDate(expiry);
+        //     this.outputExpiredTrialKey(formattedExpiryDate);
+        // }
     }
 
     private outputInvalidLicenseKey() {

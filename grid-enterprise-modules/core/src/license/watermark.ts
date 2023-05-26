@@ -8,7 +8,7 @@ export class WatermarkComp extends Component {
 
     constructor() {
         super(`<div class="ag-watermark">
-                    <div ref="eLicenseTextRef" class="ag-watermark-text"></div>
+                    <div ref="eLicenseTextRef" class="ag-watermark-text agagag"></div>
                </div>`);
     }
 

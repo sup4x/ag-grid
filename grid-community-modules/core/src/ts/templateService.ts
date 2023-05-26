@@ -10,6 +10,7 @@ export class TemplateService extends BeanStub {
     // returns the template if it is loaded, or null if it is not loaded
     // but will call the callback when it is loaded
     getTemplate(url: any, callback: any) {
+        console.log('templateService', {url});
 
         const templateFromCache = this.templateCache[url];
         if (templateFromCache) {
